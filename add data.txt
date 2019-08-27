@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>insert data in database using mysqli</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div id="main">
+<h1>Insert data into database using mysqli</h1>
+<div id="adddetails">
+<h2>Form</h2>
+<hr/>
+<form action="" method="post">
+<label>Name  :</label>
+<input type="text" name="Name" id="name" 
+placeholder="Please Enter Name"/><br /><br />
+
+<label>Aadhar  :</label>
+<input type="text" name="aadhar" id="aadhar"   placeholder="987654321012"/><br/><br />
+
+<label>Mobile  :</label>
+<input type="text" name="mobile" id="mobile" 
+ placeholder="Please Enter Mobile Number"/><br/><br />
+
+
+<label>Company  :</label>
+<input type="text" name="company" id="company" 
+ placeholder="Please Enter Company"/><br/><br />
+
+<input type="submit" value=" Submit " name="submit"/><br />
+</form>
+</div>
+<!-- Right side div -->
+
+
+</div>
+<?php
+if(isset($_POST["submit"])){
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "jtc";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Sorry,Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "INSERT INTO clients (Name, Aadhar,Mobile,Company,Description)
+VALUES ('".$_POST["Name"]."','".$_POST["Aadhar"]."','".$_POST["Mobile"]."','".$_POST["Company"]."','".$_POST["Description"]."')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "<script type= 'text/javascript'>alert('New Record Inserted Successfully');</script>";
+} else {
+    echo "<script type= 'text/javascript'>alert('Error: " . $sql . "<br>" . $conn->error."');</script>";
+}
+
+$conn->close();
+}
+?>
+</body>
+</html>

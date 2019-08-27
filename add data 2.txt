@@ -1,0 +1,14 @@
+require_once('../../../wp-load.php');
+
+global $wpdb;
+
+$Name = $_POST['Name'];
+$Aadhar = $_POST['Aadhar'];
+$Mobile = $_POST['Mobile'];
+$Company= $_POST['Company'];
+$Description = $_POST['Description'];
+$clients= $wpdb->prefix . "clients";
+$wpdb->insert( $table_name, array(
+    'name' => $name,
+    'email' => $email
+) );

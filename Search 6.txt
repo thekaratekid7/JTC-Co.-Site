@@ -1,0 +1,73 @@
+//fetch.php
+mysql_connect("localhost", "root", "", "jtc");
+mysql_select_db("jtc",) or die("Could not find the db")
+$output='';
+
+if(isset($_POST['search']))
+{
+ $searchq = $_POST['search']);
+ $query = "
+  SELECT * FROM clients;
+  WHERE Name LIKE '%$searchq%') or die("Unable to search!");
+$count=mysqli_num_rows($query);
+
+if($count ==0)
+{
+	$output= 'There was no search results!';
+}
+
+else
+{	
+		while($row =mysqli_fetch_array($query))
+		{
+			$Name = $row['Name'];
+			$Aadhar = $row['Aadhar'];
+			$Mobile = $row['Mobile'];
+			$Company = $row['Company'];
+			$Description = $row['Description'];
+			
+			$output .= '<div> '.$Name.' '.$Aadhar.' '.$Mobile.' '.$Company.' '.$Description.'</div>';
+		}
+}	
+	
+	
+	
+}
+else
+{
+ $query = "
+  SELECT * FROM clients ORDER BY Name
+ ";
+}
+$result = mysqli_query($connect, $query);
+if(mysqli_num_rows($result) > 0)
+{
+ $output .= '
+  <div class="table-responsive">
+   <table class="table table bordered">
+    <tr>
+     <th>Name</th>
+     <th>Aadhar</th>
+     <th>Mobile</th>
+     <th>Company</th>
+     <th>Description</th>
+    </tr>
+ ';
+ while($row = mysqli_fetch_array($result))
+ {
+  $output .= '
+   <tr>
+    <td>'.$row["Name"].'</td>
+    <td>'.$row["Aadhar"].'</td>
+    <td>'.$row["Mobile"].'</td>
+    <td>'.$row["Company"].'</td>
+    <td>'.$row["Description"].'</td>
+   </tr>
+  ';
+ }
+ echo $output;
+}
+else
+{
+ echo 'Data Not Found';
+}
